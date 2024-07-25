@@ -14,7 +14,7 @@ namespace API.Hubs
         public async Task JoinChatRoom(UserConnection userConnection)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.ChatRoom);
-            await Clients.Group(userConnection.ChatRoom).SendAsync("ReceiveMessage", "admin", 
+            await Clients.Group(userConnection.ChatRoom).SendAsync("JoinChatRoom", "admin", 
                 $"{userConnection.Username} has joined {userConnection.ChatRoom}");
         }
         public async Task SendMessage(string user, string message)
