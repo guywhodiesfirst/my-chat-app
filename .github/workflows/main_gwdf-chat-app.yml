@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' # Use Node.js version 20
+
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.0.2
 
@@ -63,4 +68,3 @@ jobs:
           app-name: 'gwdf-chat-app'
           slot-name: 'Production'
           package: .
-          
