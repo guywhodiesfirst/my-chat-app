@@ -11,7 +11,6 @@ const SendMessageForm = ({ sendMessage }) => {
         setMessage('')
     }}>
         <InputGroup className="mb-3">
-            <InputGroup.Text>Chat</InputGroup.Text>
             <Form.Control 
                 onChange={e => setMessage(e.target.value)} value={message}
                 placeholder="Input message here...">

@@ -11,7 +11,6 @@ function App() {
   const [messages, setMessages] = useState([]);
   const joinChatRoom = async (username, chatroom) => {
     try {
-      console.log("hiiii :D")
       const connection = new HubConnectionBuilder()
                         .withUrl("http://localhost:5134/chatHub")
                         .configureLogging(LogLevel.Information)
@@ -44,17 +43,12 @@ function App() {
   return (
     <div>
       <main>
-        <Container>
-          <Row className="px-5 my-5">
-            <Col sm={12}>
-              <h1 className='font-weight-light'>Welcome!</h1>
-            </Col>
-          </Row>
+        <>
           {!connection 
             ? <WaitingRoom joinChatRoom={joinChatRoom}/>
             : <ChatRoom messages={messages} sendMessage={sendMessage}/>
           }
-        </Container>
+        </>
       </main>
     </div>
   )

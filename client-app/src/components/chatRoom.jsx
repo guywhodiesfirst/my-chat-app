@@ -1,10 +1,10 @@
-import { Row, Col } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import MessageContainer  from "./messageContainer"
 import SendMessageForm from "./sendMessageForm";
 
 const ChatRoom = ({messages, sendMessage}) => {
     return(
-        <div>
+        <Container className="chat-container">
             <Row className="px-5 py-">
                 <Col sm={10}>
                     <h2>Chat Room</h2>
@@ -20,7 +20,7 @@ const ChatRoom = ({messages, sendMessage}) => {
                     <SendMessageForm sendMessage={sendMessage}/>
                 </Col>
             </Row>
-        </div>
+        </Container>
     )
 }
 
