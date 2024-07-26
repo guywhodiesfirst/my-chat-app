@@ -1,11 +1,16 @@
+import { useEffect, useRef } from "react";
 import "../App.css";
 
 const MessageContainer = ({ messages }) => {
+    const messageRefEnd = useRef(null)
+    useEffect(() => {
+        messageRefEnd.current?.scrollIntoView({ behavior: "smooth"})
+    }, [messages])
     return (
-        <div>
+        <div className="message-container">
             {
                 messages.map((message, index) => 
-                <table key={index} className="table table-striped table-bordered">
+                <table key={index} className="message-table">
                     <tbody>
                         <tr>
                             {message.username == "admin"
@@ -16,6 +21,7 @@ const MessageContainer = ({ messages }) => {
                     </tbody>
                 </table> )
             }
+            <div ref={messageRefEnd}/>
         </div>
     );
 }
