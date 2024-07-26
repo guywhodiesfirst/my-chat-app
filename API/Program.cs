@@ -1,3 +1,4 @@
+using API.Data;
 using API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ builder.Services.AddSignalR().AddAzureSignalR(options =>
 {
     options.ConnectionString = builder.Configuration["AzureSignalRConnectionString"];
 });
+
+builder.Services.AddSingleton<InMemoryDb>();
 
 var app = builder.Build();
 
