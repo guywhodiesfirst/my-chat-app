@@ -1,15 +1,19 @@
 using API.Data;
 using API.Models;
+using Core.Data;
+using Core.Entitites;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.Hubs
 {
     public class ChatHub : Hub
     {
+        private readonly DataContext _dataContext;
         private readonly InMemoryDb _inMemoryDb;
-        public ChatHub(InMemoryDb inMemoryDb)
+        public ChatHub(InMemoryDb inMemoryDb, DataContext dataContext)
         {
             _inMemoryDb = inMemoryDb;
+            _dataContext = dataContext;
         }
         public async Task JoinChat(UserConnection userConnection)
         {
@@ -42,6 +46,16 @@ namespace API.Hubs
                 await Clients.Group(userConnection.ChatRoom)
                                 .SendAsync("ReceiveSpecificMessage", userConnection.Username, message);
                 
+                var newMessage = new Message
+                {
+                    Id = Guid.NewGuid(),
+                    Username = userConnection.Username,
+                    ChatRoomName = userConnection.ChatRoom,
+                    MessageText = message,
+                    Timestamp = DateTime.Now
+                };
+                await _dataContext.Messages.AddAsync(newMessage);
+                await _dataContext.SaveChangesAsync();
             }
         }
     }

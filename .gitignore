@@ -123,7 +123,7 @@ ipch/
 *.vsp
 *.vspx
 *.sap
-
+.vscode
 # Visual Studio Trace Files
 *.e2e
 
@@ -480,3 +480,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+.vscode/settings.json
