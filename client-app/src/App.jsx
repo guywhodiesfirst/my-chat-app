@@ -8,6 +8,8 @@ import ChatRoom from './components/chatRoom'
 function App() {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
+  const [inChatRoom, setInChatRoom] = useState(false);
+  
   const joinChatRoom = async (username, chatroom) => {
     try {
       const hubConnectionUrl = import.meta.env.VITE_CHATHUB_URL
@@ -17,7 +19,6 @@ function App() {
                         .build()
       connection.on("JoinChatRoom", (username, msg) => {
         setMessages(messages => [...messages, {username, msg}])
-        console.log("msg: ", msg)
       })
 
       connection.on("ReceiveSpecificMessage", (username, msg) => {
@@ -27,6 +28,7 @@ function App() {
       await connection.start()
       await connection.invoke("JoinChatRoom", {username, chatroom})
       setConnection(connection)
+      setInChatRoom(true)
     } catch(e) {
       console.log(e)
     }
@@ -40,13 +42,27 @@ function App() {
     }
   }
 
+  const leaveChatRoom = async() => {
+    try {
+      if(connection) {
+        await connection.invoke("LeaveChatRoom")
+        await connection.stop()
+        setConnection(null)
+        setMessages([])
+        setInChatRoom(false)
+      }
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
   return (
     <div>
       <main>
         <>
-          {!connection 
+          {!inChatRoom
             ? <WaitingRoom joinChatRoom={joinChatRoom}/>
-            : <ChatRoom messages={messages} sendMessage={sendMessage}/>
+            : <ChatRoom messages={messages} sendMessage={sendMessage} leaveChatRoom={leaveChatRoom}/>
           }
         </>
       </main>

@@ -21,8 +21,19 @@ namespace API.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.ChatRoom);
             _inMemoryDb.Connections[Context.ConnectionId] = userConnection;
-            await Clients.Group(userConnection.ChatRoom).SendAsync("JoinChatRoom", "admin", 
+            await Clients.Group(userConnection.ChatRoom)
+                .SendAsync("JoinChatRoom", "admin", 
                 $"{userConnection.Username} has joined {userConnection.ChatRoom}");
+        }
+        public async Task LeaveChatRoom()
+        {
+            if(_inMemoryDb.Connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, userConnection.ChatRoom);
+                _inMemoryDb.Connections.Remove(Context.ConnectionId, out _);
+                await Clients.Group(userConnection.ChatRoom)
+                    .SendAsync("LeaveChatRoom", "admin", $"{userConnection.Username} has left {userConnection.ChatRoom}");
+            }
         }
         public async Task SendMessage(string message)
         {

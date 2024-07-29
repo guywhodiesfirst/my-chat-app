@@ -30,22 +30,21 @@
   margin-bottom: 1rem;
 }
 
-.message-sender-highlighted {
-  background-color: #5396b1;
-  color: white;
+.highlight-text {
   padding-left: 3px;
   padding-right: 3px;
   padding-bottom: 2px;
   border-radius: 2px;
 }
 
-.user-joined-highlighted {
+.message-sender {
+  background-color: #5396b1;
+  color: white;
+}
+
+.user-joined {
   background-color: #b63838;
   color: white;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-bottom: 2px;
-  border-radius: 2px;
 }
 
 .chat-container {
@@ -68,4 +67,10 @@
   width: 100%;
   margin-bottom: 1rem;
   vertical-align: top;
+}
+
+.chat-room-name {
+  background-color: #a977b6;
+  color: white;
+  border-radius: 4px;
 }

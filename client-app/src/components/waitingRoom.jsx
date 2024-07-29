@@ -47,7 +47,11 @@ const WaitingRoom = ({ joinChatRoom }) => {
                             </Col>
                             <Col sm={12}>
                                 <hr />
-                                <Button variant="primary" type="submit" disabled={!(username && room)}>
+                                <Button 
+                                    variant="primary" 
+                                    type="submit" 
+                                    disabled={!(username && room)}
+                                >
                                     Join
                                 </Button>
                             </Col>

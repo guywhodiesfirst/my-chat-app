@@ -1,15 +1,21 @@
-import { Row, Col, Container } from "react-bootstrap"
+import { Row, Col, Container, Button } from "react-bootstrap"
 import MessageContainer  from "./messageContainer"
 import SendMessageForm from "./sendMessageForm";
 
-const ChatRoom = ({messages, sendMessage}) => {
+const ChatRoom = ({messages, sendMessage, leaveChatRoom}) => {
     return(
         <Container className="chat-container">
-            <Row className="px-5 py-">
-                <Col sm={10}>
-                    <h2>Chat Room</h2>
-                </Col>
+            <Row className="px-5 py-3 d-flex justify-content-between">
                 <Col>
+                    <h2><span className="highlight-text chat-room-name">Chat Room</span></h2>
+                </Col>
+                <Col xs="auto">
+                    <Button 
+                        variant="primary"
+                        onClick={leaveChatRoom}
+                    >
+                        Exit chat room
+                    </Button>
                 </Col>
             </Row>
             <Row className="px-5">

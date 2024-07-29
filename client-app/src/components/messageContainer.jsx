@@ -3,8 +3,9 @@ import "../App.css";
 
 const MessageContainer = ({ messages }) => {
     const messageRefEnd = useRef(null)
+    // When a new message is sent, chat automatically scrolls down to the newest message
     useEffect(() => {
-        messageRefEnd.current?.scrollIntoView({ behavior: "smooth"})
+        messageRefEnd.current?.scrollIntoView({ behavior: "smooth"}) 
     }, [messages])
     return (
         <div className="message-container">
@@ -14,8 +15,8 @@ const MessageContainer = ({ messages }) => {
                     <tbody>
                         <tr>
                             {message.username == "admin"
-                                ? <td><span className="user-joined-highlighted">{message.msg}</span></td>
-                                : <td><span className="message-sender-highlighted">{message.username}:</span> {message.msg}</td>
+                                ? <td><span className="highlight-text user-joined">{message.msg}</span></td>
+                                : <td><span className="highlight-text message-sender">{message.username}:</span> {message.msg}</td>
                             }
                         </tr>
                     </tbody>
