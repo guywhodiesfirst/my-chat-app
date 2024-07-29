@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import { Row, Col, Container} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import WaitingRoom from './components/waitingRoom'
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
@@ -11,8 +10,9 @@ function App() {
   const [messages, setMessages] = useState([]);
   const joinChatRoom = async (username, chatroom) => {
     try {
+      const hubConnectionUrl = import.meta.env.VITE_CHATHUB_URL
       const connection = new HubConnectionBuilder()
-                        .withUrl("http://localhost:5134/chatHub")
+                        .withUrl(hubConnectionUrl)
                         .configureLogging(LogLevel.Information)
                         .build()
       connection.on("JoinChatRoom", (username, msg) => {

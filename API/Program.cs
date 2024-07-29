@@ -41,8 +41,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<ChatHub>("chatHub");
+app.MapFallbackToController("Index", "Fallback"); // Looks for action "Index" in FallbackController
 app.UseCors("ReactApplication");
 
 app.Run();
